@@ -1,5 +1,5 @@
 /* color schemes  */
-@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300&family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,400&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300&family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,400&display=swap");
 :root {
   --pri-green: #1db954;
   --pri-black: #121212;
@@ -13,16 +13,20 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
-h1,h2,h3,h4,h5,h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   color: var(--pri-white);
 }
-body{
+body {
   background-color: var(--pri-black);
   color: white;
 }
-
 
 /* main layout  */
 .wrapper {
@@ -30,7 +34,6 @@ body{
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  
 }
 
 .navbar {
@@ -39,24 +42,57 @@ body{
   justify-content: space-between;
   padding: 0 30px;
   height: 60px;
-  background-color: var(--pri-green);
+  border-radius: 50px;
+  background-color: #6967674d;
+  backdrop-filter: blur(10px);
   color: var(--pri-white);
   position: fixed;
-  top: 0;
+  top: 10px;
+  left: 50%;
+  transform: translate(-50%, 0);
   z-index: 1;
-  width: 100%;
+  width: 90%;
+  span {
+    justify-self: flex-start;
+    margin-left: -20px;
+
+    height: 50px;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+.demo-song-section {
+  // background-color: red;
+  padding: 50px;
+  .header,
+  .card-container {
+    display: flex;
+  }
+  .header {
+    justify-content: space-between;
+  }
+  .card-container {
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-auto-rows: 290px;
+    justify-content: center;
+    gap: 45px;
+  }
 }
 
 .container {
   width: 100%;
-  margin-top: 60px;
+  
   margin-bottom: 100px;
- 
 }
 .footer {
-  border-top:1px solid var(--sec-grey);
+  border-top: 1px solid var(--sec-grey);
   background-color: #161616;
-  color: #AAAAAA;
+  color: #aaaaaa;
   height: 74px;
   display: flex;
   flex-shrink: 0;
@@ -65,7 +101,6 @@ body{
   margin-top: auto;
   font-weight: 500;
 }
-
 
 .nav-links {
   display: flex;
@@ -79,7 +114,8 @@ body{
 
 .card {
   width: 230px;
-  box-shadow: 0 4px 8px 0 rgba(34, 34, 34, 0.2), 0 6px 20px 0 rgba(20, 20, 20, 0.19);
+  box-shadow: 0 4px 8px 0 rgba(34, 34, 34, 0.2),
+    0 6px 20px 0 rgba(20, 20, 20, 0.19);
   overflow: hidden;
   height: 300px;
   background-color: var(--sec-black);
@@ -104,7 +140,6 @@ body{
   width: 210px;
   height: 200px;
   border-radius: 10px;
- 
 }
 .card h3 {
   font-size: 16px;
@@ -165,45 +200,33 @@ body{
   transform: rotate(45deg);
 }
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 30px;
-  margin-left: 50px;
-  margin-right: 50px;
-}
-.card-container {
-  display: flex;
-  justify-content: center;
-  gap: 40px;
-  flex-wrap: wrap;
-  margin-bottom: 50px;
-}
-
-
 .banner {
-  height: 400px;
-display: flex;
- gap:30px;
- align-items: flex-end;
- padding-left: 50px;
- padding-bottom: 50px;
- color:var(--pri-white);
+  height: 500px;
+  display: flex;
+  gap: 30px;
+  align-items: flex-end;
+  padding-left: 50px;
+  padding-bottom: 50px;
+  color: var(--pri-white);
 }
 .banner img {
+  margin-bottom:70px;
   width: 300px;
   height: 300px;
   object-fit: cover;
 }
-.banner  p {
+.banner p {
   font-size: 25px;
+  
+}
+
+.banner p:last-child {
+  margin-bottom: 100px;
 }
 .banner h1 {
-  font-size:60px;
+  font-size: 60px;
   font-weight: bolder;
 }
-
-
 
 .song-table {
   width: 100%;
@@ -212,11 +235,11 @@ display: flex;
   thead tr {
     background-color: red;
   }
-  th, td {
+  th,
+  td {
     padding: 15px;
     text-align: left;
   }
-
 
   .song-card {
     display: grid;
@@ -227,27 +250,23 @@ display: flex;
     align-items: center;
     border-radius: 10px;
     margin: 10px;
-  
+
     td:nth-child(1) {
       display: flex;
       align-items: center;
-      gap : 10px;
-      
+      gap: 10px;
+
       img {
         width: 50px;
         height: 50px;
         border-radius: 6px;
       }
-      div  {
+      div {
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
         gap: 2px;
       }
     }
-  
   }
-  
-
 }
-

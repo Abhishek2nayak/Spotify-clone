@@ -3,7 +3,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 const config = {
   headers: {
-    Authorization: `Bearer ${localStorage.getItem('token')}`,
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
   },
 };
 const bg_color = [
@@ -26,7 +26,7 @@ const Detail = () => {
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     //get newly release albums
-    setLoading(true)
+    setLoading(true);
     axios
       .get(`https://api.spotify.com/v1/albums/${id}`, config)
       .then((res) => res.data)
@@ -34,46 +34,52 @@ const Detail = () => {
       .catch((error) => {
         throw new Error(error);
       });
-      setLoading(false)
+    setLoading(false);
   }, [id]);
-  
-  if(loading) {
+
+  if (loading) {
     alert(loading);
-    return(
-      <h1>Loading</h1>
-    )
+    return <h1>Loading</h1>;
   }
   console.log(albums);
+  const bgColor = generateRandomColor();
 
-  const element =  albums ? <div style={{backgroundColor : generateRandomColor()}}>
-  {/* top  */}
-  <div className="banner">
-    <img src={albums.images[0].url} alt="" />
-    <div>
-      <p>{albums.album_type}</p>
-      <h1>{albums.name}</h1>
-      <p>{albums.artists[0].name}</p>
-    </div>
-  </div>
-</div> : "No data found";
-
-  const tracks = albums ?  albums.tracks.items.map((track) => (
-    <tr key={track.id}>
-      <div>
-        <h5>{track.name}</h5>
-        <p>{track.type}</p>
+  const BannerStyle = {
+    background: bgColor,
+    background: `linear-gradient(180deg,${bgColor} 10%,rgba(0,0,0,0.5) 110%)`,
+  };
+  const element = albums ? (
+    <div style={BannerStyle}>
+      {/* top  */}
+      <div className="banner">
+        <img src={albums.images[0].url} alt="" />
+        <div>
+          <p>{albums.album_type}</p>
+          <h1>{albums.name}</h1>
+          <p>{albums.artists[0].name}</p>
+        </div>
       </div>
-    </tr> 
-  )) : "No track found";
+    </div>
+  ) : (
+    "No data found"
+  );
 
- 
+  const tracks = albums
+    ? albums.tracks.items.map((track) => (
+        <tr key={track.id}>
+          <div>
+            <h5>{track.name}</h5>
+            <p>{track.type}</p>
+          </div>
+        </tr>
+      ))
+    : "No track found";
+
   return (
-  <>
-  {element}
-  {tracks}
-  </>
-    
-   
+    <>
+      {element}
+      {tracks}
+    </>
   );
 };
 

@@ -62,14 +62,18 @@ const Home = () => {
 
   return (
     <>
+    <div className="demo-song-section">
       <Header title={"New Release"}/>
       <div className="card-container">
         {latestAlbumElements}
-        </div>
+      </div>
+    </div>
+    <div className="demo-song-section">
       <Header title={"Artist"}/>
       <div className="card-container">
       {artistElement}
         </div>
+    </div>
         
     </>
   );
