@@ -1,16 +1,17 @@
 import React from 'react';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
 import { Outlet } from 'react-router-dom';
+import Sidebar from '../components/Sidebar';
+import  './style.scss'
 const Layout = () => {
   return (
-    <div className='wrapper'>
-      <Navbar/>
-      <div className='container'>
-        <Outlet/>
-      </div>
-      <Footer/>
+  <div className='main-layout'>
+    <Sidebar/>
+    <div className='right-side-layout'>
+      <main>
+    <Outlet/>
+    </main>
     </div>
+  </div>
   );
 }
 

@@ -1,26 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-const config = {
-  headers: {
-    Authorization: `Bearer ${localStorage.getItem("token")}`,
-  },
-};
-const bg_color = [
-  "#8A2BE2",
-  "#C71585",
-  "	#DC143C",
-  "#FFA500",
-  "#00FF00",
-  "#20B2AA",
-  "#BC8F8F",
-  "#008080",
-];
+import { generateRandomColor, getBannerColorStyle, millisToMinutesAndSeconds} from "../utils/UtilFunctions";
+import { config } from "../utils/Constant";
 
-const Detail = () => {
-  function generateRandomColor() {
-    return bg_color[Math.floor(Math.random() * bg_color.length)];
-  }
+
+const Detail = () => {  
   const id = useParams().id;
   const [albums, setAlbums] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -42,14 +27,12 @@ const Detail = () => {
     return <h1>Loading</h1>;
   }
   console.log(albums);
-  const bgColor = generateRandomColor();
+  const color = generateRandomColor();
 
-  const BannerStyle = {
-    background: bgColor,
-    background: `linear-gradient(180deg,${bgColor} 10%,rgba(0,0,0,0.5) 110%)`,
-  };
+
+  
   const element = albums ? (
-    <div style={BannerStyle}>
+    <div style={getBannerColorStyle(color)}>
       {/* top  */}
       <div className="banner">
         <img src={albums.images[0].url} alt="" />
@@ -64,21 +47,48 @@ const Detail = () => {
     "No data found"
   );
 
+  console.log(albums);
+
   const tracks = albums
     ? albums.tracks.items.map((track) => (
-        <tr key={track.id}>
-          <div>
-            <h5>{track.name}</h5>
-            <p>{track.type}</p>
-          </div>
-        </tr>
+    <tr className='song-card' key={track.id}>
+      <td>
+        <span>1</span>
+        <img src={track.images} alt="" />
+        {/* {console.log(track.images)} */}
+        <div>
+          <span>{track.name}</span>
+          <span>{track.type}</span>
+        </div>
+      </td>
+      <td>Album</td>
+      <td>time added</td>
+      <td>
+        {/* <span>heart</span>
+        <span>time</span> */}
+        <span>{millisToMinutesAndSeconds(track.duration_ms)}</span>
+      </td>
+    </tr>
       ))
     : "No track found";
 
   return (
     <>
+    <div>
       {element}
-      {tracks}
+    </div>
+    <div>
+      <table className="song-list">
+        <tr>
+          <th>#</th>
+          <th>Title</th>
+          <th>Album</th>
+          <th>Date added</th>
+          <th>Duration</th>
+        </tr>
+        {tracks}
+      </table>
+    </div> 
     </>
   );
 };

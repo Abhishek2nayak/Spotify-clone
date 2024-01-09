@@ -4,17 +4,20 @@ import axios from "axios";
 import AlbumCard from "../components/Card/AlbumCard";
 import Header from "../components/Header";
 import ArtistCard from "../components/Card/ArtistCard";
+import { sortString, getCompressedName } from "../utils/UtilFunctions";
+
+
+
+
+import { config } from "../utils/Constant";
+import AlbumList from "../components/container/AlbumList";
+import ArtistList from "../components/container/ArtistList";
+import { HomeBanner } from "../components/HomeBanner";
 const Home = () => {
   const [albums, setAlbums] = useState(null);
   const [artist, setArtist] = useState(null);
-  const [playList, setPlayList] = useState(null);
 
-  const config = {
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-    },
-  };
-
+  // const [playList, setPlayList] = useState(null);
   useEffect(() => {
     //get newly release albums
     axios
@@ -24,7 +27,7 @@ const Home = () => {
       .catch((error) => {
         throw new Error(error);
       });
-      axios
+    axios
       .get("https://api.spotify.com/v1/artists?ids=2CIMQHirSU0MQqyYHq0eOx%2C57dN52uHvrHOxijzpIgu3E%2C1vCWHaC5f2uS3yhpwWbIA6", config)
       .then((res) => res.data)
       .then((data) => setArtist(data.artists))
@@ -32,49 +35,22 @@ const Home = () => {
         throw new Error(error);
       });
   }, []);
-  console.log(artist);
-
-  function sortString(str) {
-    return str.length >= 15 ? str.substring(0, 15) + ".." : str;
-  }
-  function getCompressedName(artists) {
-    let names = artists.map((artist) => artist.name + " ,").toString();
-    names = names.substring(0, names.length - 1);
-    return names.length >= 15 ? names.substring(0, 15) + ".." : names;
-  }
-  const latestAlbumElements = albums?.map((album) => (
-    <AlbumCard
-      src={album.images[1].url}
-      title={sortString(album.name)}
-      id={album.id}
-      description={getCompressedName(album.artists)}
-    />
-  ));
-  const artistElement = artist?.map((artist) => (
-    <ArtistCard
-      src={artist.images[1].url}
-      title={sortString(artist.name)}
-      id={artist.id}
-      description={artist.type}
-    />
-  ));
-  
 
   return (
     <>
-    <div className="demo-song-section">
-      <Header title={"New Release"}/>
-      <div className="card-container">
-        {latestAlbumElements}
-      </div>
-    </div>
-    <div className="demo-song-section">
-      <Header title={"Artist"}/>
-      <div className="card-container">
-      {artistElement}
-        </div>
-    </div>
+      <HomeBanner/>
+      {/* albums  */}
+      <div className="demo-song-section">
+        <Header title={"New Release"} />
+        <AlbumList albums={albums} />
         
+      </div>
+
+      {/* artist  */}
+      <div className="demo-song-section">
+        <Header title={"Artist"} />
+        <ArtistList artist={artist} />
+      </div>
     </>
   );
 };

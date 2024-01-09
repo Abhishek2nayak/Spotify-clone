@@ -1,9 +1,10 @@
 import React from 'react';
+import Genre from '../components/Card/Genre';
 
 const Search = () => {
   return (
     <div>
-      Search
+      <Genre/>
     </div>
   );
 }
